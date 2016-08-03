@@ -32,7 +32,7 @@ io.on("connection", function (socket) {
     console.log("join",data);
     socket.join(data.room_id);
   });
-  socket.on("new msg",function(data){ 
+  socket.on("new msg",function(data){
     //db저장 후
     console.log("msg",data);
     io.in(data.room_id).emit("new msg",data);
