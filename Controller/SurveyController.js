@@ -80,6 +80,8 @@ router.post('/insert', function (req, res) {
 
         surveyModel.createSurvey(insertResult, insertItem, insertArray, function (createResult) {
 
+            res.type('application/json');
+            res.header("Access-Control-Allow-Origin" , "*");
             res.json({
                 code: errorCode.Ok,
                 index : createResult
