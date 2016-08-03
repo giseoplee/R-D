@@ -17,9 +17,9 @@ router.get('/list', function (req, res) {
     var selectField = ['id', 'subject', 'item'];
 
     surveyModel.findSurveyList(selectField, function (result) {
-        
+
         var array = [];
-        
+
         for (var i = 0; i < result.length; i++) {
             array.push(result[i]);
         }
@@ -43,9 +43,9 @@ router.get('/search', function (req, res) {
     var selectField = ['id', 'subject', 'item'];
 
     surveyModel.findBySubject(selectField, surveySubject, function (result) {
-        
+
         var array = [];
-        
+
         for (var i = 0; i < result.length; i++) {
             array.push(result[i]);
         }
@@ -62,27 +62,29 @@ router.get('/search', function (req, res) {
 router.post('/insert', function (req, res) {
 
     var insertSubject = req.body.subject;
-    var insertItem = req.body.item;
+    var insertItem = req.body.contents.length;
+    var insertArray = req.body.contents;
 
     if (insertSubject === undefined || insertItem === undefined) {
         throw { code: errorCode.ParamError };
     }
-    
-    surveyModel.insertSurvey(insertSubject, insertItem, function (result) {
 
-        console.log(result);
-        var array = [];
-        
-        for (var i = 0; i < result.length; i++) {
-            array.push(result[i]);
+    surveyModel.insertSurvey(insertSubject, insertItem, function (insertResult) {
+
+        if(!insertResult){
+          throw{ code: errorCode.DBError };
         }
+        var array = [];
 
-        res.json({
-            code: errorCode.Ok,
-            data: array
+        surveyModel.createSurvey(insertResult, insertItem, insertArray, function (createResult) {
+
+            res.json({
+                code: errorCode.Ok,
+                index : createResult
+            });
+            res.end();
+
         });
-        res.end();
-
     });
 });
 

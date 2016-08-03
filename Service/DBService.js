@@ -26,7 +26,7 @@ DBService.Init = function () {
 DBService.Query = function (query, value, succEvent) {
     this._pool.getConnection(function (err, connection) {
         connection.query(query, value, function (err, rows) {
-            
+
             if (err) {
                 connection.release();
                 throw err;
@@ -35,8 +35,6 @@ DBService.Query = function (query, value, succEvent) {
             succEvent(rows);
             connection.release();
         });
-
-
     });
 };
 
