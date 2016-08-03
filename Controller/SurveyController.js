@@ -61,6 +61,9 @@ router.get('/search', function (req, res) {
 
 router.post('/insert', function (req, res) {
 
+    res.type('application/json');
+	  res.header("Access-Control-Allow-Origin" , "*");
+
     var insertSubject = req.body.subject;
     var insertItem = req.body.contents.length;
     var insertArray = req.body.contents;
