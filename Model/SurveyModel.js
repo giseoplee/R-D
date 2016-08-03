@@ -110,5 +110,13 @@ Survey.createSurvey = function(surveyId, itemCount, itemArray, callback){ // 해
     });
 }
 
+Survey.updateItemCount = function(surveyId, itemIndex, callback){
+
+    var arr = [];
+    var columnName = "item"+itemIndex;
+    arr.push(table_detail+surveyId);
+    arr.push(columnName);
+}
+
 
 module.exports = Survey;
