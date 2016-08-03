@@ -1,7 +1,5 @@
 var util = require('util');
 var survey_routes = require('../Controller/SurveyController.js');
-// var exchangeRate_routes = require('../Controller/ExchangeRateController.js');
-// var push_routes = require('../Controller/PushController.js');
 
 var RoutesService = function () {
 };
