@@ -14,7 +14,7 @@ router.use(function log(req, res, next) {
 
 router.get('/list', function (req, res) {
 
-    var selectField = ['id', 'subject'];
+    var selectField = ['id', 'subject', 'created_at'];
 
     surveyModel.findSurveyList(selectField, function (result) {
 
