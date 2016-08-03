@@ -8,13 +8,8 @@ var traceback = require('traceback');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var compression = require('compression');
-<<<<<<< HEAD
-var os = require('os');
-
-=======
-var os = require('os');  
->>>>>>> origin/master
+var compression = require('compression'); 
+var os = require('os'); 
 var dbService = require("./Service/DBService.js");
 var routesService = require("./Service/RoutesService.js");
 var index = require('./Controller/ViewController.js');
@@ -32,11 +27,6 @@ var cpuNo = os.cpus().length;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-var httpServer = http.createServer(app).listen(8080, function(req,res){
-  console.log('Socket IO server has been started');
-});
-
-var io = require('socket.io').listen(httpServer);
 
 io.on("connection", function (socket) {
 
