@@ -7,15 +7,9 @@ var cluster = require('cluster');
 var traceback = require('traceback');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-<<<<<<< HEAD
+var methodOverride = require('method-override'); 
 var compression = require('compression'); 
-var os = require('os'); 
-=======
-var compression = require('compression');
-var os = require('os');
-
->>>>>>> 5c64371ac980471439727166f48c249bf9937a6b
+var os = require('os');  
 var dbService = require("./Service/DBService.js");
 var routesService = require("./Service/RoutesService.js");
 var index = require('./Controller/ViewController.js');
@@ -31,12 +25,7 @@ var cpuNo = os.cpus().length;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 5c64371ac980471439727166f48c249bf9937a6b
+app.set('view engine', 'ejs'); 
 io.on("connection", function (socket) {
   socket.on("new user",function(data){
     console.log("join",data);
