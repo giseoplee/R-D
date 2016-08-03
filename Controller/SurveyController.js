@@ -74,7 +74,6 @@ router.post('/insert', function (req, res) {
         if(!insertResult){
           throw{ code: errorCode.DBError };
         }
-        var array = [];
 
         surveyModel.createSurvey(insertResult, insertItem, insertArray, function (createResult) {
 

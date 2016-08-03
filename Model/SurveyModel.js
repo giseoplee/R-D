@@ -13,7 +13,7 @@ var q = ",??";
 
 Survey.prototype.data = {};
 
-Survey.findSurveyList = function (selectField, callback) {
+Survey.findSurveyList = function (selectField, callback) { // 설문 리스트 전체 SELECT
     var string = "";
     var arr = [];
 
@@ -34,7 +34,7 @@ Survey.findSurveyList = function (selectField, callback) {
     });
 }
 
-Survey.findBySubject = function (selectField, surveySubject, callback) {
+Survey.findBySubject = function (selectField, surveySubject, callback) { // 제목에 따른 설문 검색
 
     var string = "";
     var arr = [];
@@ -63,7 +63,6 @@ Survey.insertSurvey = function (subject, item, callback) {
     arr.push(table);
     arr.push(subject);
     arr.push(item);
-    console.log(arr);
 
     dbService.Query("INSERT ?? SET subject = ?, item = ?"+dateStamp, arr, function (data, err) {
 
@@ -71,7 +70,7 @@ Survey.insertSurvey = function (subject, item, callback) {
     });
 }
 
-Survey.createSurvey = function(surveyId, itemCount, itemArray, callback){
+Survey.createSurvey = function(surveyId, itemCount, itemArray, callback){ // 해당 설문조사 테이블 생성
 
     var createString = config.createConfig.createQuery.replace("{survey_index}", surveyId);
     var arr = [];
@@ -95,12 +94,18 @@ Survey.createSurvey = function(surveyId, itemCount, itemArray, callback){
           items += ",item"+j+"='"+itemArray[itemIndex].item+"'";
         }
 
-        console.log(arr);
-        console.log(items);
+        dbService.Query("INSERT ?? SET survey_id = ?"+items+dateStamp, arr, function(data, err){ // 클라이언트로부터 받은 데이터를 설문 상세 테이블에 삽입
 
-        dbService.Query("INSERT ?? SET survey_id = ?"+items+dateStamp, arr, function(data, err){
+            console.log(data);
+            arr = [];
+            arr.push(table);
+            arr.push(surveyId);
+            arr.push(surveyId);
 
-            callback(surveyId);
+            dbService.Query("UPDATE ?? SET survey_detail_id = ? where id = ?", arr, function(data, err){ // 설문 테이블에 상세 테이블 PK 등록 (SELECT 시 조인 구문 사용 위함)
+
+                callback(surveyId);
+            });
         });
     });
 }

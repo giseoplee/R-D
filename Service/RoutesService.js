@@ -12,7 +12,7 @@ var RoutesService = function () {
 RoutesService.Init = function() {
 
     app.use(function log(req, res, next) {
-        console.log('[S][][INFO] URL : '+req.originalUrl+' IP : '+req.ip);
+        console.log('[INFO] URL : '+req.originalUrl+' IP : '+req.ip);
         next();
     })
 
