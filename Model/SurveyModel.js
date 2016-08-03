@@ -96,7 +96,6 @@ Survey.createSurvey = function(surveyId, itemCount, itemArray, callback){ // 해
 
         dbService.Query("INSERT ?? SET survey_id = ?"+items+dateStamp, arr, function(data, err){ // 클라이언트로부터 받은 데이터를 설문 상세 테이블에 삽입
 
-            console.log(data);
             arr = [];
             arr.push(table);
             arr.push(surveyId);
@@ -116,6 +115,45 @@ Survey.updateItemCount = function(surveyId, itemIndex, callback){
     var columnName = "item"+itemIndex;
     arr.push(table_detail+surveyId);
     arr.push(columnName);
+}
+
+Survey.findSurveyDetail = function(surveyId, callback){
+
+      var arr = [];
+      var column = "item";
+      var field = "id";
+      var tableName = tableDetail+surveyId;
+      var maxItem = 0;
+
+      arr.push(column);
+      arr.push(table);
+      arr.push(field);
+      arr.push(surveyId);
+
+      dbService.Query("SELECT ?? FROM ?? WHERE ?? = ?", arr, function(data, err){
+
+          maxItem = data[0].item;
+
+          dbService.Query("SELECT * FROM ??", tableName, function(data, err){
+
+              console.log(data);
+              arr = [];
+              var obj = {};
+
+              arr.push(data[0].survey_id);
+
+              for(var i = 1; i <= maxItem; i++){
+
+                  obj = {};
+                  obj.item = data[0].item+i;
+                  //obj.cnt = data[0].item+i+_cnt;
+                  arr.push(obj);
+                  console.log(obj);
+              }
+
+              callback(data);
+          });
+      });
 }
 
 

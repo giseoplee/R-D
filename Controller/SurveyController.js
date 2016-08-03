@@ -40,15 +40,17 @@ router.get('/detail', function (req, res) {
         throw { code: errorCode.ParamError };
     }
 
-    var selectField = ['survey_id', 'subject', 'created_at'];
+    //var selectField = ['survey_id', 'subject', 'created_at'];
 
-    surveyModel.findSurveyList(selectField, function (result) {
+    surveyModel.findSurveyDetail(surveyId, function(result) {
 
         var array = [];
 
         for (var i = 0; i < result.length; i++) {
             array.push(result[i]);
         }
+
+        console.log(array);
 
         res.json({
             code: errorCode.Ok,
