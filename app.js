@@ -39,7 +39,7 @@ io.on("connection", function (socket) {
     socket.emit("new msg",data);
   })
 
-  // 연결 해제
+  연결 해제
   socket.on('disconnect', (data) => {
     console.log("disconnect");
     socket.leave();

@@ -8,28 +8,48 @@ var errorCode = require('../Common/ErrorCode.js');
 var router = express.Router();
 
 router.use(function log(req, res, next) {
-    console.log('## ROUTER DATA ##');
+    console.log('## SURVEY CONTROLLER ##');
     next();
 });
 
 router.get('/list', function (req, res) {
 
+    var page = req.query.page;
     var selectField = ['id', 'subject', 'created_at'];
+    var limitRange = [];
 
-    surveyModel.findSurveyList(selectField, function (result) {
+    surveyModel.getSurveyCount(function(result){
 
-        var array = [];
+        var pageCount = result[0].count;
+        var pageListCount = 3;
+        var pageBegin = (page - 1) * pageListCount;
+        var pageTotal = Math.ceil(pageCount / pageListCount);
+        var pageLinkCount = 3;
+        var pageStart = Math.floor((page - 1) / pageLinkCount) * pageLinkCount + 1;
+        var pageEnd = pageStart + (pageLinkCount - 1);
+        var pageMax = pageCount - ((page - 1) * pageLinkCount);
 
-        for (var i = 0; i < result.length; i++) {
-            array.push(result[i]);
+        if(pageEnd > pageTotal){
+            pageEnd = pageTotal;
         }
 
-        res.json({
-            code: errorCode.Ok,
-            data: array
-        });
-        res.end();
+        limitRange.push(pageBegin);
+        limitRange.push(pageListCount);
 
+        surveyModel.findSurveyList(selectField, limitRange, function(result){
+
+            var array = [];
+
+            for (var i = 0; i < result.length; i++) {
+                array.push(result[i]);
+            }
+
+            res.json({
+                code: errorCode.Ok,
+                data: array
+            });
+            res.end();
+        });
     });
 });
 
@@ -40,8 +60,6 @@ router.get('/detail', function (req, res) {
         throw { code: errorCode.ParamError };
     }
 
-    //var selectField = ['survey_id', 'subject', 'created_at'];
-
     surveyModel.findSurveyDetail(surveyId, function(result) {
 
         var array = [];
@@ -49,8 +67,6 @@ router.get('/detail', function (req, res) {
         for (var i = 0; i < result.length; i++) {
             array.push(result[i]);
         }
-
-        console.log(array);
 
         res.json({
             code: errorCode.Ok,
@@ -112,6 +128,25 @@ router.post('/insert', function (req, res) {
             res.end();
 
         });
+    });
+});
+
+router.post('/update', function (req, res) {
+
+    var surveyId = req.body.survey;
+    var updateItemIndex = req.body.index;
+
+    if (surveyId === undefined || updateItemIndex === undefined) {
+        throw { code: errorCode.ParamError };
+    }
+
+    surveyModel.updateSurveyItem(surveyId, updateItemIndex, function (result) {
+
+        console.log(result);
+        res.json({
+            code: errorCode.Ok,
+        });
+        res.end();
     });
 });
 

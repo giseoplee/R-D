@@ -1,5 +1,6 @@
 var util = require('util');
 var survey_routes = require('../Controller/SurveyController.js');
+var user_routes = require('../Controller/AdminController.js');
 
 var RoutesService = function () {
 };
@@ -16,7 +17,7 @@ RoutesService.Init = function() {
 
     // 라우터
     app.use('/survey', survey_routes);
-    // app.use('/exchangerate', exchangeRate_routes);
+    app.use('/admin', user_routes);
     // app.use('/push', push_routes);
 
     console.log('##Settup Routes');

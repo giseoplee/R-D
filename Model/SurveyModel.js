@@ -13,7 +13,15 @@ var q = ",??";
 
 Survey.prototype.data = {};
 
-Survey.findSurveyList = function (selectField, callback) { // 설문 리스트 전체 SELECT
+Survey.getSurveyCount = function(callback){
+
+    dbService.Query("SELECT count(id) count FROM ??", table, function(data){
+        callback(data);
+    });
+}
+
+Survey.findSurveyList = function (selectField, limitRange, callback) { // 설문 리스트 전체 SELECT
+  
     var string = "";
     var arr = [];
 
@@ -29,7 +37,12 @@ Survey.findSurveyList = function (selectField, callback) { // 설문 리스트 �
 
     arr.push(table);
 
-    dbService.Query("SELECT ??" + string + " FROM ?? ORDER BY id DESC", arr, function (data) {
+    for (var k = 0; k < limitRange.length ; k++) {
+
+        arr.push(limitRange[k]);
+    }
+
+    dbService.Query("SELECT ??" + string + " FROM ?? ORDER BY id DESC LIMIT ?,?", arr, function (data) {
         callback(data);
     });
 }
@@ -109,12 +122,20 @@ Survey.createSurvey = function(surveyId, itemCount, itemArray, callback){ // 해
     });
 }
 
-Survey.updateItemCount = function(surveyId, itemIndex, callback){
+Survey.updateSurveyItem = function(surveyId, itemIndex, callback){
 
     var arr = [];
-    var columnName = "item"+itemIndex;
-    arr.push(table_detail+surveyId);
+    var columnName = "item"+itemIndex+"_count";
+    arr.push(tableDetail+surveyId);
     arr.push(columnName);
+    arr.push(columnName);
+
+    console.log(arr);
+
+    dbService.Query("UPDATE ?? SET ?? = ?? + 1", arr, function(data, err){
+        console.log(data);
+        callback(data);
+    });
 }
 
 Survey.findSurveyDetail = function(surveyId, callback){
@@ -136,22 +157,22 @@ Survey.findSurveyDetail = function(surveyId, callback){
 
           dbService.Query("SELECT * FROM ??", tableName, function(data, err){
 
-              console.log(data);
               arr = [];
               var obj = {};
+              obj.survey = data[0].survey_id;
 
-              arr.push(data[0].survey_id);
+              arr.push(obj);
 
               for(var i = 1; i <= maxItem; i++){
 
                   obj = {};
-                  obj.item = data[0].item+i;
-                  //obj.cnt = data[0].item+i+_cnt;
+                  obj.index = i;
+                  obj.item = data[0]["item"+i];
+                  obj.cnt = data[0]["item"+i+"_count"];
                   arr.push(obj);
-                  console.log(obj);
               }
 
-              callback(data);
+              callback(arr);
           });
       });
 }
