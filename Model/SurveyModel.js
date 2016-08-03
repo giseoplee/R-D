@@ -29,7 +29,7 @@ Survey.findSurveyList = function (selectField, callback) { // 설문 리스트 �
 
     arr.push(table);
 
-    dbService.Query("SELECT ??" + string + " FROM ??", arr, function (data) {
+    dbService.Query("SELECT ??" + string + " FROM ?? ORDER BY id DESC", arr, function (data) {
         callback(data);
     });
 }
