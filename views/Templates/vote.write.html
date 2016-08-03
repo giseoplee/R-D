@@ -1,0 +1,36 @@
+<div ng-controller="navController as navContrl">
+    <nav-dec>Call partials nav.html</nav-dec>
+</div>
+<div class="body">
+    <div class="body-content">
+        <h2 class="vote-plus-h2">
+            투표 추가 <button class="btn btn-primary" ng-click="voteWriteCtrl.submitVote()">등록</button>
+        </h2>
+        <br/>
+        <br/>
+        <form role="form" ng-submit="voteWriteCtrl.addVote()">
+             <input type="text" style="width:300px; float:left;" ng-model="voteWriteCtrl.subject" placeholder="투표 주제" class="form-control" minlength="1" maxlength="10"
+                        required>
+            <div class="row">
+                <div class="input-group"> 
+                    <input type="text" ng-model="voteWriteCtrl.content" placeholder="추가할 내용" class="form-control" minlength="1" maxlength="10"
+                        required>
+                    <span class="input-group-btn">
+                    <input type="submit" class="btn btn-primary" value="Add">
+                </span>
+                </div>
+            </div>
+        </form>
+        <p></p>
+
+        <!-- Todos list -->
+        <div ui-sortable ng-model="voteWriteCtrl.votes">
+            <p class="input-group" ng-repeat="vote in voteWriteCtrl.votes" style="padding: 5px 10px;">
+                <span color="black"> {{vote.item}}</span>
+                <span class="input-group-btn">
+                <button class="btn btn-danger" ng-click="voteWriteCtrl.removeVote($index)" aria-label="Remove">X</button>
+            </span>
+            </p>
+        </div>
+    </div>
+</div>

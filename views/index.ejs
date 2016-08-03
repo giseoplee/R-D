@@ -1,11 +1,45 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="ko" ng-app="myApp">
+
+<head>
+   <meta charset="utf-8">
+  <title>
+    <%= title %>
+  </title>
+
+  <base href="/" />
+  <!-- Custom CSS -->
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+
+  
+</head>
+
+<body>
+
+  <ui-view></ui-view> 
+
+  <!--Angular Core-->
+  <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="/javascripts/app.js"></script>
+
+  <!--Angular Controller-->
+  <script src="/javascripts/controllers/mainController.js"></script>
+  <script src="/javascripts/controllers/voteWriteController.js"></script>
+  <script src="/javascripts/controllers/voteController.js"></script>
+  <script src="/javascripts/controllers/navController.js"></script>
+
+
+  <!-- Angular Directive -->
+  <script src="/javascripts/directives/navDirective.js"></script> 
+
+  <!-- Angular Service -->
+  <script src="/javascripts/services/socketio.js"></script> 
+  <script src="/javascripts/services/voteService.js"></script>
+  <script src="/javascripts/services/voteWriteService.js"></script> 
+
+</body>
+
 </html>

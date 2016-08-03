@@ -1,0 +1,38 @@
+<div  ng-controller="navController as navContrl">
+    <nav-dec>Call partials nav.html</nav-dec>
+</div>  
+
+<div class="body">
+    <div class="body-content">
+        <h1>연구소 설문</h1> 
+<div class="panel panel-default"> 
+    <table class="table table-hover table-condensed" >
+        <thead align="center">
+        <tr>
+            <th width=20>Index</th>
+            <th width=150>제목</th>
+            <th width=50>등록인</th>
+            <th width=70>날짜</th> 
+        </tr>
+        </thead>
+
+       <tbody>
+        <tr ng-repeat="vote in mainCtrl.voteMsgs">
+            <td width=20>{{vote.vote_no}}</td>
+            <td width=150> 
+                  <a ui-sref="vote({id:vote.vote_no})">{{vote.title}}</a> 
+            </td>
+
+            <td width=50>{{vote.name}}</td>
+            <td width=70><small>{{vote.regdate}}</small></td> 
+
+        </tr>
+        <tr ng-show="!mainCtrl.voteMsgs.length">
+            <td colspan="6" style="text-align :center">
+                <span class="text-warning">No data exists.</span>
+            </td>
+        </tr>
+       </tbody>
+    </table> 
+</div>
+ 
