@@ -9,7 +9,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var compression = require('compression');
-var os = require('os'); 
+var os = require('os');
 
 var dbService = require("./Service/DBService.js");
 var routesService = require("./Service/RoutesService.js");
@@ -23,6 +23,33 @@ var cpuNo = os.cpus().length;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+var httpServer = http.createServer(app).listen(8080, function(req,res){
+  console.log('Socket IO server has been started');
+});
+
+var io = require('socket.io').listen(httpServer);
+
+io.on("connection", function (socket) {
+
+  socket.on("new user",function(data){
+      console.log("join",data);
+      socket.join(data.room_id);
+  });
+
+  socket.on("new msg",function(data){
+      console.log("socket : ",socket);
+      //db저장 후
+      console.log("msg",data);
+      io.in(data.room_id).emit("new msg",data);
+  });
+
+// 연결 해제
+  socket.on('disconnect', (data) => {
+      console.log("disconnect");
+      socket.leave();
+  });
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
