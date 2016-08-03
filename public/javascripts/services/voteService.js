@@ -1,16 +1,13 @@
 
 
-app.factory("voteService",function($q,socketio){
+app.factory("voteService", function ($q, socketio, $rootScope) {
 
-    return{
-        getMsg:function(){
-            return $q.when();
+    return { 
+        joinMsg: function (data) {
+            socketio.emit("new user", data);
         },
-        joinMsg:function(data){
-            socketio.emit("join room",data);
-        },
-        voteMsg:function(data){
-            socketio.emit("vote",data);
+        voteMsg: function (data) {
+            socketio.emit("new msg", data);
         }
     }
 })

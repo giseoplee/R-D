@@ -7,7 +7,20 @@ var app = angular.module('myApp', ["ui.router"])
 				url: "/index",
 				templateUrl: "Templates/main.html",
 				controller: 'mainController',
-				controllerAs: "mainCtrl"
+				controllerAs: "mainCtrl",
+				resolve: {
+					list: function ($http) {
+						var $promise = $http.get("/survey/list") 
+						return $promise.then(function (msg) {
+							//성공할 경우 
+							var code = msg.data.code; 
+							if (code == 0) { 
+								return msg.data;
+							}  
+						})
+					}
+
+				}
 			})
 			.state("write", {
 				url: "/write",
@@ -22,28 +35,21 @@ var app = angular.module('myApp', ["ui.router"])
 				controllerAs: 'voteCtrl',
 				resolve: {
                     voteContent: function ($http, $stateParams) {
-						console.log("stateParam",$stateParams);
-						$http.get("/survey/list")
-                            .then(function(response){
-                                console.log("response : ",response); 
-                            })
-
-
+						console.log("stateParam", $stateParams); 
 						var arr = {
-							index:$stateParams.id,
-							title: "설문조사",
-							name:"조현우",
+							id: $stateParams.id,
+							subject: "설문조사",
 							votes: [
-								{ content: "밥", num: 55 },
-								{ content: "국수", num: 25 },
-								{ content: "버거", num: 15 },
-								{ content: "집", num: 18 },
-								{ content: "샷", num: 20 }
+								{ item: "밥", cnt: 55 },
+								{ item: "국수", cnt: 25 },
+								{ item: "버거", cnt: 15 },
+								{ item: "집", cnt: 18 },
+								{ item: "샷", cnt: 20 }
 							]
 						};
 						return arr;
                     }
                 }
-			}) 
+			})
 		$locationProvider.html5Mode(true);
 	})

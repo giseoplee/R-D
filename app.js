@@ -27,15 +27,16 @@ var cpuNo = os.cpus().length;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 io.on("connection", function (socket) {
+  console.log("socket connection");
   socket.on("new user",function(data){
     console.log("join",data);
     socket.join(data.room_id);
   });
-  socket.on("new msg",function(data){
-    console.log("socket : ",socket);
+  socket.on("new msg",function(data){ 
     //db저장 후
     console.log("msg",data);
     io.in(data.room_id).emit("new msg",data);
+    socket.emit("new msg",data);
   })
 
   // 연결 해제

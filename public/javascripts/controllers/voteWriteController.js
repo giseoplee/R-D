@@ -4,8 +4,12 @@ app.controller("voteWriteController", ["$scope","$window","voteWriteService",fun
     var vm = this;
     vm.votes = [];
     vm.subject="";
+    vm.content="";
     vm.addVote = function () {   
-        if(vm.votes.length>10){
+        if(vm.content.trim().length==0){
+            $window.alert("목록을 입력해주세요");
+            return;
+        }else if(vm.votes.length>10){
             $window.alert("10개 이상 등록은 불가능합니다.");
             return;
         }else if(vm.subject.trim().length==0){

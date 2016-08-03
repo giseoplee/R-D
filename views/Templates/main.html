@@ -17,9 +17,9 @@
 
        <tbody>
         <tr ng-repeat="vote in mainCtrl.voteMsgs">
-            <td width=20>{{vote.vote_no}}</td>
+            <td width=20>{{vote.id}}</td>
             <td width=200> 
-                  <a ui-sref="vote({id:vote.vote_no})">{{vote.title}}</a> 
+                  <a ui-sref="vote({id:vote.id})">{{vote.subject}}</a> 
             </td>
  
             <td width=70><small>{{vote.regdate}}</small></td> 

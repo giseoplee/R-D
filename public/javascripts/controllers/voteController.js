@@ -1,43 +1,45 @@
 
 
-app.controller("voteController", function ($scope, voteContent,voteService) {
+app.controller("voteController", function ($scope, voteContent, voteService, socketio) {
 
     var vm = this;
-    var user_vote;
-    vm.vote_flag=false;
-     
+    vm.user_vote = "";
+    vm.vote_flag = false;
+
 
     setting(voteContent);
 
 
-    vm.onResponse=function(){  
-        voteService.voteMsg(user_vote);
-        vm.vote_flag=true;
-    }  
-    vm.onRadioClick=function(vote){
-        console.log("click",vote);
-        user_vote=vote;
+    vm.onResponse = function () {
+        voteService.voteMsg(vm.user_vote);
+        vm.vote_flag = true;
     }
-    function setting(voteContent) { 
-        vm.voteContent = voteContent; 
-        content = voteContent.votes;
+    vm.onRadioClick = function (vote) {
+        console.log(vote);
+        vm.user_vote = vote;
+    }
+    socketio.on("new msg", function (data) { 
+        console.log("data", data);
+    }) 
+
+    function setting(voteContent) {
+        vm.voteContent = voteContent;
+        var items = voteContent.votes;
         var max = 100;
         var sum = 0;
-        content.forEach(function (element, index) {
-            sum += element.num;
+        items.forEach(function (element, index) {
+            sum += element.cnt;
         }, this);
-        content.forEach(function (element, index) {
+        items.forEach(function (element, index) {
             vm.voteContent.votes[index].percentage = 0;
-            if (content.length - 1 == index) {
+            if (items.length - 1 == index) {
                 vm.voteContent.votes[index].percentage = max;
             } else {
                 var percentage = 0;
-                percentage = parseInt((element.num / sum) * 100);
+                percentage = parseInt((element.cnt / sum) * 100);
                 vm.voteContent.votes[index].percentage = percentage;
                 max -= percentage;
             }
-            console.log(vm.voteContent.votes[index].percentage);
-
         }, this);
     }
 });
