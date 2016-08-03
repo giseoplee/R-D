@@ -23,6 +23,12 @@ var app = angular.module('myApp', ["ui.router"])
 				resolve: {
                     voteContent: function ($http, $stateParams) {
 						console.log("stateParam",$stateParams);
+						$http.get("/survey/list")
+                            .then(function(response){
+                                console.log("response : ",response); 
+                            })
+
+
 						var arr = {
 							index:$stateParams.id,
 							title: "설문조사",
