@@ -14,7 +14,33 @@ router.use(function log(req, res, next) {
 
 router.get('/list', function (req, res) {
 
-    var selectField = ['id', 'subject'];
+    var selectField = ['id', 'subject', 'created_at'];
+
+    surveyModel.findSurveyList(selectField, function (result) {
+
+        var array = [];
+
+        for (var i = 0; i < result.length; i++) {
+            array.push(result[i]);
+        }
+
+        res.json({
+            code: errorCode.Ok,
+            data: array
+        });
+        res.end();
+
+    });
+});
+
+router.get('/detail', function (req, res) {
+
+    var surveyId = req.query.survey;
+    if (surveyId === undefined) {
+        throw { code: errorCode.ParamError };
+    }
+
+    var selectField = ['survey_id', 'subject', 'created_at'];
 
     surveyModel.findSurveyList(selectField, function (result) {
 
