@@ -9,7 +9,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var compression = require('compression');
-var os = require('os');
+var os = require('os'); 
 
 var dbService = require("./Service/DBService.js");
 var routesService = require("./Service/RoutesService.js");
