@@ -7,9 +7,9 @@ var cluster = require('cluster');
 var traceback = require('traceback');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override'); 
-var compression = require('compression'); 
-var os = require('os');  
+var methodOverride = require('method-override');
+var compression = require('compression');
+var os = require('os');
 var dbService = require("./Service/DBService.js");
 var routesService = require("./Service/RoutesService.js");
 var index = require('./Controller/ViewController.js');
@@ -25,7 +25,7 @@ var cpuNo = os.cpus().length;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs'); 
+app.set('view engine', 'ejs');
 io.on("connection", function (socket) {
   socket.on("new user",function(data){
     console.log("join",data);
@@ -54,12 +54,13 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname)));
-app.get('/*', function(req,res,next){
-  res.render("index",{title:"Express"});
-});
 
 dbService.Init();
 routesService.Init();
+
+app.get('/*', function(req,res,next){
+  res.render("index",{title:"Express"});
+});
 
 httpServer.listen(httpPort, () => {
   console.log('HTTP server listening on port %d !!!', httpPort);
