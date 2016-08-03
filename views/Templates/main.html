@@ -10,8 +10,7 @@
         <thead align="center">
         <tr>
             <th width=20>Index</th>
-            <th width=150>제목</th>
-            <th width=50>등록인</th>
+            <th width=200>제목</th> 
             <th width=70>날짜</th> 
         </tr>
         </thead>
@@ -19,11 +18,10 @@
        <tbody>
         <tr ng-repeat="vote in mainCtrl.voteMsgs">
             <td width=20>{{vote.vote_no}}</td>
-            <td width=150> 
+            <td width=200> 
                   <a ui-sref="vote({id:vote.vote_no})">{{vote.title}}</a> 
             </td>
-
-            <td width=50>{{vote.name}}</td>
+ 
             <td width=70><small>{{vote.regdate}}</small></td> 
 
         </tr>

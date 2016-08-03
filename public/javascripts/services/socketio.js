@@ -1,8 +1,8 @@
 
 
-app.factory("socketio", function ($rootScope) {
-
-    var socket = io.connect();
+app.factory("socketio", function ($rootScope) {  
+    
+    var socket = io.connect(); 
 
     return {
         on: function (eventName, callback) {
@@ -28,5 +28,5 @@ app.factory("socketio", function ($rootScope) {
             $timeout(socket.disconnect(), 0, false);
         },
         socket: socket
-    }
+    };
 });

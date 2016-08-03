@@ -5,7 +5,10 @@ app.controller("voteController", function ($scope, voteContent,voteService) {
     var vm = this;
     var user_vote;
     vm.vote_flag=false;
+     
+
     setting(voteContent);
+
 
     vm.onResponse=function(){  
         voteService.voteMsg(user_vote);
