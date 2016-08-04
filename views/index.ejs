@@ -2,7 +2,10 @@
 <html lang="ko" ng-app="myApp">
 
 <head>
-   <meta charset="utf-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>
     <%= title %>
   </title>
@@ -16,18 +19,18 @@
   <!--font-->
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500italic' rel='stylesheet' type='text/css'>
   <!--Socket-->
-	<!--<script src="/socket.io/socket.io.js"></script>-->
+  <!--<script src="/socket.io/socket.io.js"></script>-->
   <script src="https://cdn.socket.io/socket.io-1.4.8.js"></script>
 </head>
 
 <body>
 
-  <ui-view></ui-view> 
- 
+  <ui-view></ui-view>
 
-<!----> 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
+  <!---->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!--Angular Core-->
   <script src="/bower_components/angular/angular.min.js"></script>
   <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
@@ -41,12 +44,12 @@
 
 
   <!-- Angular Directive -->
-  <script src="/javascripts/directives/navDirective.js"></script> 
+  <script src="/javascripts/directives/navDirective.js"></script>
 
   <!-- Angular Service -->
-  <script src="/javascripts/services/socketio.js"></script> 
+  <script src="/javascripts/services/socketio.js"></script>
   <script src="/javascripts/services/voteService.js"></script>
-  <script src="/javascripts/services/voteWriteService.js"></script> 
+  <script src="/javascripts/services/voteWriteService.js"></script>
 
 </body>
 
