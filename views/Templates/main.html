@@ -44,21 +44,21 @@
         <div class="row text-center">
             <div class="col-lg-12">
                 <ul class="pagination">
-                    <li><a ng-click="mainCtrl.pageClick(1)">&laquo;</a>
+                    <li><a href="" ng-click="mainCtrl.pageClick(1)">&laquo;</a>
                     </li>
-                    <li ng-if="mainCtrl.beforePage"><a ng-click="mainCtrl.pageClick(myPageCtrl.startPage-1)">&lsaquo;</a>
+                    <li ng-if="mainCtrl.beforePage"><a href="" ng-click="mainCtrl.pageClick(mainCtrl.pageStart-1)">&lsaquo;</a>
                     </li>
-                    <li ng-if="!mainCtrl.beforePage"><a ng-click="mainCtrl.pageClick(1)">&lsaquo;</a>
+                    <li ng-if="!mainCtrl.beforePage"><a href="" ng-click="mainCtrl.pageClick(1)">&lsaquo;</a>
                     </li>
 
                     <li ng-repeat="p in mainCtrl.range()">
-                        <a ng-click="mainCtrl.pageClick(p)">{{p}}</a>
+                        <a href="" ng-click="mainCtrl.pageClick(p)">{{p}}</a>
                     </li>
-                    <li ng-if="mainCtrl.afterPage"><a href="" ng-click="mainCtrl.pageClick(mainCtrl.endPage+1)">&rsaquo;</a>
+                    <li ng-if="mainCtrl.afterPage"><a href="" ng-click="mainCtrl.pageClick(mainCtrl.pageEnd+1)">&rsaquo;</a>
                     </li>
-                    <li ng-if="!mainCtrl.afterPage"><a href="" ng-click="mainCtrl.pageClick(mainCtrl.totalPage)">&rsaquo;</a>
+                    <li ng-if="!mainCtrl.afterPage"><a href="" ng-click="mainCtrl.pageClick(mainCtrl.pageTotal)">&rsaquo;</a>
                     </li>
-                    <li><a ng-click="mainCtrl.pageClick(mainCtrl.totalPage)">&raquo;</a>
+                    <li><a href="" ng-click="mainCtrl.pageClick(mainCtrl.pageTotal)">&raquo;</a>
                     </li>
                 </ul>
             </div>
