@@ -19,13 +19,13 @@
                 </thead>
 
                 <tbody>
-                    <tr ng-repeat="vote in mainCtrl.voteMsgs">
+                    <tr ng-if="$index!=0;" ng-repeat="vote in mainCtrl.voteMsgs">
                         <td width=20>{{vote.id}}</td>
                         <td width=200>
                             <a ui-sref="vote({id:vote.id,subject:vote.subject})">{{vote.subject}}</a>
                         </td>
 
-                        <td width=70><small>{{vote.regdate}}</small></td>
+                        <td width=70><small>{{vote.created_at}}</small></td>
 
                     </tr>
                     <tr ng-show="!mainCtrl.voteMsgs.length">

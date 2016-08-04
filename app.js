@@ -28,13 +28,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 io.on("connection", function (socket) {
   console.log("socket connection");
-  socket.on("new user",function(data){
-    console.log("join",data);
+  socket.on("new user",function(data){ 
     socket.join(data.room_id);
   });
   socket.on("new msg",function(data){
-    //db저장 후
-    console.log("msg",data);
+    //db저장 후 
     io.in(data.room_id).emit("new msg",data);
     socket.emit("new msg",data);
   })
