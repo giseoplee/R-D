@@ -5,27 +5,29 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
     var vm = this;
     vm.user_vote = "";
     vm.vote_flag = false;
-    vm.subject = voteContent.subject; 
+    vm.subject = voteContent.subject;
 
     setting(voteContent.data);
 
 
     vm.onResponse = function () {
-        var form={
-            index:vm.user_vote.index,
-            survey:voteContent.survey
+        var form = {
+            index: vm.user_vote.index,
+            survey: voteContent.survey
         }
         voteService.voteMsg(form);
         vm.vote_flag = true;
     }
-    vm.onRadioClick = function (vote) { 
+    vm.onRadioClick = function (vote) {
         vm.user_vote = vote;
     }
-    socketio.on("new msg", function (data) { 
+    socketio.on("new msg", function (data) {
 
         console.log(data);
     })
-
+    vm.ckBar = function (ck) {
+        console.log("check : ",ck);
+    }
     function setting(voteContent) {
         vm.voteContent = voteContent;
         var items = voteContent;
@@ -34,7 +36,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         items.forEach(function (element, index) {
             if (index != 0) sum += element.cnt;
         }, this);
-        items.forEach(function (element, index) { 
+        items.forEach(function (element, index) {
             if (index != 0) {
                 vm.voteContent[index].percentage = 0;
                 if (items.length - 1 == index) {
@@ -46,7 +48,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
                     vm.voteContent[index].percentage = 0;
                 } else {
                     var percentage = 0;
-                    percentage =parseInt ((element.cnt / sum) * 100);
+                    percentage = parseInt((element.cnt / sum) * 100);
                     console.log("percentage", percentage)
                     vm.voteContent[index].percentage = percentage;
                     max -= percentage;
