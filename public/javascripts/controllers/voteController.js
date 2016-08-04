@@ -1,6 +1,6 @@
 
 
-app.controller("voteController", function ($scope, voteContent, voteService, socketio,$state) {
+app.controller("voteController", function ($scope, voteContent, voteService, socketio, $state, $window) {
 
     var vm = this;
     vm.user_vote = "";
@@ -10,11 +10,16 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
     setting(voteContent.data);
 
 
-    vm.onResponse = function () {
+    vm.onResponse = function () { 
+        
+        if (vm.user_vote.index === undefined ||  voteContent.survey===undefined) { 
+            $window.alert("선택해주세요");
+            return;
+        }
         var form = {
             index: vm.user_vote.index,
             survey: voteContent.survey
-        } 
+        }
         voteService.voteMsg(form);
         vm.vote_flag = true;
     }
@@ -22,11 +27,10 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         vm.user_vote = vote;
     }
     socketio.on("new msg", function (data) {
-        setting(data);  
-        $state.reload();
+        setting(data); 
     })
     vm.ckBar = function (ck) {
-        console.log("check : ",ck);
+        console.log("check : ", ck);
     }
     function setting(voteContent) {
         vm.voteContent = voteContent;
@@ -48,7 +52,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
                     vm.voteContent[index].percentage = 0;
                 } else {
                     var percentage = 0;
-                    percentage = parseInt((element.cnt / sum) * 100); 
+                    percentage = parseInt((element.cnt / sum) * 100);
                     vm.voteContent[index].percentage = percentage;
                     max -= percentage;
                 }
