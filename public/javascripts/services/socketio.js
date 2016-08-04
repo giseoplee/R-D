@@ -5,6 +5,7 @@ app.factory("socketio", function ($rootScope) {
     var socket = io.connect();  
     return {
         on: function (eventName, callback) { 
+            console.log("eventName",eventName);
             socket.on(eventName, function () {
                 var args = arguments; 
                 $rootScope.$apply(function () {

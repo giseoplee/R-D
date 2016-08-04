@@ -22,8 +22,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         }
         voteService.voteMsg(form);
         vm.user_vote="";
-        vm.vote_flag = true;
-        $state.reload();
+        vm.vote_flag = true; 
     }
     vm.onRadioClick = function (vote) {
         vm.user_vote = vote;
