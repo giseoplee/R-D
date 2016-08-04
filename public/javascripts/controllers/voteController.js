@@ -5,22 +5,25 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
     var vm = this;
     vm.user_vote = "";
     vm.vote_flag = false;
-    vm.subject = voteContent.subject;
-    console.log("data", voteContent);
+    vm.subject = voteContent.subject; 
 
     setting(voteContent.data);
 
 
     vm.onResponse = function () {
-        voteService.voteMsg(vm.user_vote);
+        var form={
+            index:vm.user_vote.index,
+            survey:voteContent.survey
+        }
+        voteService.voteMsg(form);
         vm.vote_flag = true;
     }
-    vm.onRadioClick = function (vote) {
-        console.log(vote);
+    vm.onRadioClick = function (vote) { 
         vm.user_vote = vote;
     }
-    socketio.on("new msg", function (data) {
-        console.log("data", data);
+    socketio.on("new msg", function (data) { 
+
+        console.log(data);
     })
 
     function setting(voteContent) {
