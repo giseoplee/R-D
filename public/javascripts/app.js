@@ -10,8 +10,7 @@ var app = angular.module('myApp', ["ui.router"])
 				controllerAs: "mainCtrl",
 				resolve: {
 					list: function ($http,$stateParams) {
-						var page;
-						console.log("index",$stateParams);
+						var page; 
 						if($stateParams.page===""||$stateParams.page===undefined)
                             page=1;
                         else page=$stateParams.page; 
@@ -21,7 +20,7 @@ var app = angular.module('myApp', ["ui.router"])
 							//성공할 경우 
 							var code = msg.data.code;
 							if (code == 0) {
-								console.log("success");
+								console.log("success",msg.data);
 								return msg.data;
 							} else {
 								

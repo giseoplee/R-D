@@ -25,7 +25,9 @@ body{
 .vote-plus-h2{
     display: inline
 }
-
+h1{
+    font-family: 'Ubuntu', sans-serif;
+}
 
 /* Vertical Bar Graph */
 .vGraph{ width:100%; padding:20px 0;   text-align:   center;}
