@@ -23,12 +23,13 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         voteService.voteMsg(form);
         vm.user_vote="";
         vm.vote_flag = true;
+        $state.reload();
     }
     vm.onRadioClick = function (vote) {
         vm.user_vote = vote;
     }
-    socketio.on("new msg", function (data) {
-        setting(data); 
+    socketio.on("new msg", function (data) { 
+        $state.reload();
     })
     vm.ckBar = function (ck) {
         console.log("check : ", ck);

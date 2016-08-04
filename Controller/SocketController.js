@@ -29,10 +29,10 @@ SocketService.Init = function () {
 
                     var array = [];
  
-                    async.eachSeries(result, (data, callback) => {
+                    async.eachSeries(result, function(data, callback) {
                         array.push(data)
                         callback(array);
-                    }, (array) => {
+                    }, function(array)  {
                         socket.broadcast.to(data.room_id).emit("new msg", array);
                         socket.emit("new msg", array); 
                     });
