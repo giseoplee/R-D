@@ -10,19 +10,18 @@ var app = angular.module('myApp', ["ui.router"])
 				controllerAs: "mainCtrl",
 				resolve: {
 					list: function ($http) {
-						var $promise = $http.get("/survey/list") 
+						var $promise = $http.get("/survey/list")
 						return $promise.then(function (msg) {
 							//성공할 경우 
-							var code = msg.data.code; 
-							if (code == 0) { 
+							var code = msg.data.code;
+							if (code == 0) {
 								return msg.data;
-							} else{
-								msg.data=[];
+							} else {
+								msg.data = [];
 								return msg.data;
 							}
 						})
-					}
-
+					} 
 				}
 			})
 			.state("write", {
@@ -32,26 +31,27 @@ var app = angular.module('myApp', ["ui.router"])
 				controllerAs: 'voteWriteCtrl'
 			})
 			.state("vote", {
-				url: "/vote/:id",
+				url: "/vote/:id/:subject/",
 				templateUrl: "Templates/vote.html",
 				controller: 'voteController',
 				controllerAs: 'voteCtrl',
 				resolve: {
-                    voteContent: function ($http, $stateParams) {
-						console.log("stateParam", $stateParams); 
-						var arr = {
-							id: $stateParams.id,
-							subject: "설문조사",
-							votes: [
-								{ item: "밥", cnt: 55 },
-								{ item: "국수", cnt: 25 },
-								{ item: "버거", cnt: 15 },
-								{ item: "집", cnt: 18 },
-								{ item: "샷", cnt: 20 }
-							]
-						};
-						return arr;
-                    }
+                    voteContent: function ($http, $stateParams,$state,$window) {
+						console.log("$state",$stateParams);
+						var $promise =$http.get("/survey/detail/"+$stateParams.id);
+						return $promise.then(function(msg){
+							var code= msg.data.code;
+							
+							if(code==0){ 
+								return msg.data.data;
+							}else{
+								return msg.data=[];
+								// $window.alert("잘못된 경로입니다.");
+								// $state.go("index");
+							}
+						});
+					 
+                    } 
                 }
 			})
 		$locationProvider.html5Mode(true);
