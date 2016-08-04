@@ -11,7 +11,8 @@ SocketService.Init = function() {
         socket.on("new user", function(data) {
             console.log("join", data);
             var room ="r"+data.room_id;
-            socket.join(data.room_id);
+            socket.join(room);
+            socket.room=room;
         });
 
         socket.on("new msg", function(data) {
