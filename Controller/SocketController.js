@@ -39,7 +39,7 @@ SocketService.Init = function() {
     });
 
 // 연결 해제
-    socket.on('disconnect', (data) => {
+    socket.on('disconnect', function(data){
         console.log("disconnect");
         socket.leave();
     });
