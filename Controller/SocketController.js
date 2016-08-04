@@ -1,19 +1,20 @@
 var util = require('util');
 var surveyModel = require('../Model/SurveyModel.js');
 var async = require("async");
-var SocketService = function () {
+var SocketService = function() {
 };
 
-SocketService.Init = function () {
+SocketService.Init = function() {
 
-    io.on("connection", function (socket) {
+    io.on("connection", function(socket) {
 
-        socket.on("new user", function (data) {
+        socket.on("new user", function(data) {
             console.log("join", data);
+            var room ="r"+data.room_id;
             socket.join(data.room_id);
         });
 
-        socket.on("new msg", function (data) {
+        socket.on("new msg", function(data) {
             // console.log("socket : ",socket);
 
             var surveyId = data.survey;
@@ -23,9 +24,9 @@ SocketService.Init = function () {
                 throw { code: errorCode.ParamError };
             }
 
-            surveyModel.updateSurveyItem(surveyId, updateItemIndex, function (result) {
+            surveyModel.updateSurveyItem(surveyId, updateItemIndex, function(result) {
 
-                surveyModel.findSurveyDetail(surveyId, function (result) {
+                surveyModel.findSurveyDetail(surveyId, function(result) {
 
                     var array = [];
 
@@ -39,17 +40,18 @@ SocketService.Init = function () {
                     //     socket.emit("new msg", array);
                     // });
 
-                   for (var i = 0; i < result.length; i++) {
+                    for (var i = 0; i < result.length; i++) {
                         array.push(result[i]);
                     }
-                   socket.broadcast.to(data.room_id).emit("new msg", array);
-                   socket.emit("new msg", array);
+                    var room = "r" + data.room_id;
+                    socket.broadcast.to(room).emit("new msg", array);
+                    socket.emit("new msg", array);
                 });
             });
         });
 
         // 연결 해제
-        socket.on('disconnect', function (data) {
+        socket.on('disconnect', function(data) {
             console.log("disconnect");
             socket.leave();
         });
