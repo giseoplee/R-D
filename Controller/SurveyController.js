@@ -1,18 +1,20 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var util = require('util');
+var moment = require('moment');
 
 var surveyModel = require('../Model/SurveyModel.js');
 var errorCode = require('../Common/ErrorCode.js');
 
 var router = express.Router();
+moment.locale('ko');
 
 router.use(function log(req, res, next) {
     console.log('## SURVEY CONTROLLER ##');
     next();
 });
 
-router.get('/list', function (req, res) {
+router.get('/list/:page', function (req, res) {
 
     var page = req.query.page;
     var selectField = ['id', 'subject', 'created_at'];
@@ -21,10 +23,10 @@ router.get('/list', function (req, res) {
     surveyModel.getSurveyCount(function(result){
 
         var pageCount = result[0].count;
-        var pageListCount = 3;
+        var pageListCount = 10;
         var pageBegin = (page - 1) * pageListCount;
         var pageTotal = Math.ceil(pageCount / pageListCount);
-        var pageLinkCount = 3;
+        var pageLinkCount = 10;
         var pageStart = Math.floor((page - 1) / pageLinkCount) * pageLinkCount + 1;
         var pageEnd = pageStart + (pageLinkCount - 1);
         var pageMax = pageCount - ((page - 1) * pageLinkCount);
@@ -48,6 +50,9 @@ router.get('/list', function (req, res) {
             var array = [];
 
             for (var i = 0; i < result.length; i++) {
+
+                console.log(moment(result[i].created_at).fromNow());
+                //console.log(result[i]);
                 array.push(result[i]);
             }
 
@@ -60,7 +65,7 @@ router.get('/list', function (req, res) {
     });
 });
 
-router.get('/detail', function (req, res) {
+router.get('/detail/:survey', function (req, res) {
 
     var surveyId = req.query.survey;
     if (surveyId === undefined) {
@@ -149,7 +154,6 @@ router.post('/update', function (req, res) {
 
     surveyModel.updateSurveyItem(surveyId, updateItemIndex, function (result) {
 
-        console.log(result);
         res.json({
             code: errorCode.Ok,
         });

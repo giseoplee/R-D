@@ -43,6 +43,7 @@ Survey.findSurveyList = function (selectField, limitRange, callback) { // 설문
     }
 
     dbService.Query("SELECT ??" + string + " FROM ?? ORDER BY id DESC LIMIT ?,?", arr, function (data) {
+
         callback(data);
     });
 }
@@ -66,6 +67,7 @@ Survey.findBySubject = function (selectField, surveySubject, callback) { // 제�
     arr.push('subject');
 
     dbService.Query("SELECT ??" + string + " FROM ?? WHERE ?? like '%"+surveySubject+"%'", arr, function (data) {
+
         callback(data);
     });
 }
