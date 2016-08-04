@@ -42,10 +42,8 @@ SocketService.Init = function() {
 
                     for (var i = 0; i < result.length; i++) {
                         array.push(result[i]);
-                    }
-                    var room = "r" + data.room_id;
-                    socket.broadcast.to(room).emit("new msg", array);
-                    io.to(room).emit('new msg',array);
+                    } 
+                    socket.broadcast.to(socket.room).emit("new msg", array); 
                     socket.emit("new msg", array);
                 });
             });
