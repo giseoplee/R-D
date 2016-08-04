@@ -5,7 +5,9 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
     var vm = this;
     vm.user_vote = "";
     vm.vote_flag = false;
-    vm.subject = voteContent.subject;
+    vm.subject = voteContent.subject; 
+    
+    voteService.joinMsg({room_id:voteContent.survey});
 
     setting(voteContent.data);
 
@@ -28,14 +30,13 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         vm.user_vote = vote;
     }
     socketio.on("new msg", function (data) { 
-        console.log("new msg : ", data); 
-        
+        console.log("new msg : ", data);  
         setting(data); 
     })
     vm.ckBar = function (ck) {
         console.log("check : ", ck);
     }
-    function setting(voteContent) {
+    function setting(voteContent) {  
         vm.voteContent = voteContent;
         var items = voteContent;
         var max = 100;

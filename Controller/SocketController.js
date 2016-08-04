@@ -44,6 +44,7 @@ SocketService.Init = function() {
                     for (var i = 0; i < result.length; i++) {
                         array.push(result[i]);
                     } 
+                    console.log("room : ",socket.room)
                     socket.broadcast.to(socket.room).emit("new msg", array); 
                     socket.emit("new msg", array);
                 });
