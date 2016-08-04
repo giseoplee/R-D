@@ -5,16 +5,15 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
     var vm = this;
     vm.user_vote = "";
     vm.vote_flag = false;
-    vm.subject = voteContent.subject; 
-    
-    voteService.joinMsg({room_id:voteContent.survey});
+    vm.subject = voteContent.subject;
+
+    voteService.joinMsg({ room_id: voteContent.survey });
 
     setting(voteContent.data);
+ 
+    vm.onResponse = function () {
 
-    console.log("voteContent",voteContent);
-    vm.onResponse = function () { 
-        
-        if (vm.user_vote.index === undefined ||  voteContent.survey===undefined) { 
+        if (vm.user_vote.index === undefined || voteContent.survey === undefined) {
             $window.alert("선택해주세요");
             return;
         }
@@ -23,44 +22,46 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
             survey: voteContent.survey
         }
         voteService.voteMsg(form);
-        vm.user_vote="";
-        vm.vote_flag = true; 
+        vm.user_vote = "";
+        vm.vote_flag = true;
     }
     vm.onRadioClick = function (vote) {
         vm.user_vote = vote;
     }
-    socketio.on("new msg", function (data) { 
-        console.log("new msg : ", data);  
-        setting(data); 
+    socketio.on("new msg", function (data) {
+        console.log("new msg : ", data);
+        setting(data);
     })
     vm.ckBar = function (ck) {
         console.log("check : ", ck);
     }
-    function setting(voteContent) {  
+    function setting(voteContent) {
         vm.voteContent = voteContent;
         var items = voteContent;
         var max = 100;
         var sum = 0;
-        items.forEach(function (element, index) {
-            if (index != 0) sum += element.cnt;
-        }, this);
-        items.forEach(function (element, index) {
-            if (index != 0) {
-                vm.voteContent[index].percentage = 0;
-                if (items.length - 2 == index) {
-                    if (max == 100)
-                        vm.voteContent[index].percentage = 0;
-                    else
-                        vm.voteContent[index].percentage = max;
-                } else if (sum == 0) {
-                    vm.voteContent[index].percentage = 0;
-                } else {
-                    var percentage = 0;
-                    percentage = parseInt((element.cnt / sum) * 100);
-                    vm.voteContent[index].percentage = percentage;
-                    max -= percentage;
-                }
+        console.log("items : ", voteContent)
+        for (var i = 1; i < items.length; i++) {
+            sum += items[i].cnt; 
+        }
+        for (var i = 1; i < items.length; i++) {
+            vm.voteContent[i].percentage = 0;
+            
+            if (items.length - 1 == i) {
+                if (max == 100)
+                    vm.voteContent[i].percentage = 0;
+                else
+                    vm.voteContent[i].percentage = max;
+            } else if (sum == 0) {
+                vm.voteContent[i].percentage = 0;
+            } else {
+                var percentage = 0;
+                percentage = parseInt((items[i].cnt / sum) * 100);
+                vm.voteContent[i].percentage = percentage;
+                max -= percentage;
             }
-        }, this);
+            
+            console.log("sum : ",vm.voteContent[i].percentage);
+        } 
     }
 });
