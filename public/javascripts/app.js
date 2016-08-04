@@ -12,7 +12,7 @@ var app = angular.module('myApp', ["ui.router"])
 					list: function ($http,$stateParams) {
 						var page;
 						console.log("index",$stateParams);
-						if($stateParams.page==="")
+						if($stateParams.page===""||$stateParams.page===undefined)
                             page=1;
                         else page=$stateParams.page; 
 						 
