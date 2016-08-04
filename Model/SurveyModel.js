@@ -185,6 +185,7 @@ Survey.findSurveyDetail = function(surveyId, callback){
                   arr.push(obj);
               }
 
+              console.log(arr);
               callback(arr);
           });
       });

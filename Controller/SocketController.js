@@ -28,14 +28,15 @@ SocketService.Init = function () {
                 surveyModel.findSurveyDetail(surveyId, function (result) {
 
                     var array = [];
- 
+
                     async.eachSeries(result, function(data, callback) {
                         array.push(data)
                         callback(array);
                     }, function(array)  {
                         socket.broadcast.to(data.room_id).emit("new msg", array);
-                        socket.emit("new msg", array); 
+                        socket.emit("new msg", array);
                     });
+
                 });
             });
         });
