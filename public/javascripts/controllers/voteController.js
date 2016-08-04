@@ -29,6 +29,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         vm.user_vote = vote;
     }
     socketio.on("new msg", function (data) { 
+        console.log("new msg : ", data);
         $state.reload();
     })
     vm.ckBar = function (ck) {
