@@ -9,14 +9,23 @@ var app = angular.module('myApp', ["ui.router"])
 				controller: 'mainController',
 				controllerAs: "mainCtrl",
 				resolve: {
-					list: function ($http) {
-						var $promise = $http.get("/survey/list")
+					list: function ($http,$stateParams) {
+						var page;
+						console.log("index",$stateParams);
+						if($stateParams.page==="")
+                            page=1;
+                        else page=$stateParams.page; 
+						 
+						var $promise = $http.get("/survey/list?page="+page)
 						return $promise.then(function (msg) {
 							//성공할 경우 
 							var code = msg.data.code;
 							if (code == 0) {
+								console.log("success");
 								return msg.data;
 							} else {
+								
+								console.log("fail");
 								msg.data = [];
 								return msg.data;
 							}
@@ -31,7 +40,7 @@ var app = angular.module('myApp', ["ui.router"])
 				controllerAs: 'voteWriteCtrl'
 			})
 			.state("vote", {
-				url: "/vote/:id/:subject/",
+				url: "/vote/:id/:subject",
 				templateUrl: "Templates/vote.html",
 				controller: 'voteController',
 				controllerAs: 'voteCtrl',
