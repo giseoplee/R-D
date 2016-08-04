@@ -1,36 +1,38 @@
-<div  ng-controller="navController as navContrl">
+<div ng-controller="navController as navContrl">
     <nav-dec>Call partials nav.html</nav-dec>
-</div>  
+</div>
 
 <div class="body">
-    <div class="body-content">
-        <h1>연구소 설문</h1> 
-<div class="panel panel-default"> 
-    <table class="table table-hover table-condensed" >
-        <thead align="center">
-        <tr>
-            <th width=20>Index</th>
-            <th width=200>제목</th> 
-            <th width=70>날짜</th> 
-        </tr>
-        </thead>
+    <div class="container">
 
-       <tbody>
-        <tr ng-repeat="vote in mainCtrl.voteMsgs">
-            <td width=20>{{vote.id}}</td>
-            <td width=200> 
-                  <a ui-sref="vote({id:vote.id})">{{vote.subject}}</a> 
-            </td>
- 
-            <td width=70><small>{{vote.regdate}}</small></td> 
+        <div class="jumbotron text-center">
+            <h1>연구소 설문</h1>
+         </div>
+        <div class="panel panel-default">
+            <table class="table table-hover table-condensed">
+                <thead align="center">
+                    <tr>
+                        <th width=20>Index</th>
+                        <th width=200>제목</th>
+                        <th width=70>날짜</th>
+                    </tr>
+                </thead>
 
-        </tr>
-        <tr ng-show="!mainCtrl.voteMsgs.length">
-            <td colspan="6" style="text-align :center">
-                <span class="text-warning">No data exists.</span>
-            </td>
-        </tr>
-       </tbody>
-    </table> 
-</div>
- 
+                <tbody>
+                    <tr ng-repeat="vote in mainCtrl.voteMsgs">
+                        <td width=20>{{vote.id}}</td>
+                        <td width=200>
+                            <a ui-sref="vote({id:vote.id})">{{vote.subject}}</a>
+                        </td>
+
+                        <td width=70><small>{{vote.regdate}}</small></td>
+
+                    </tr>
+                    <tr ng-show="!mainCtrl.voteMsgs.length">
+                        <td colspan="6" style="text-align :center">
+                            <span class="text-warning">No data exists.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>

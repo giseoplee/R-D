@@ -1,5 +1,10 @@
 /*body-content*/
-
+body{
+    padding-top:80px; 
+}
+.body-write{
+     padding-top:50px; 
+}
 .body-content {
    position: relative;
     width: 100%;

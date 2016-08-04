@@ -1,36 +1,52 @@
 <div ng-controller="navController as navContrl">
     <nav-dec>Call partials nav.html</nav-dec>
 </div>
-<div class="body">
+<div class="body-write">
     <div class="body-content">
         <h2 class="vote-plus-h2">
-            투표 추가 <button class="btn btn-primary" ng-click="voteWriteCtrl.submitVote()">등록</button>
+            투표 추가 <button class="btn btn-primary" style="width:70px" ng-click="voteWriteCtrl.submitVote()">등록</button>
         </h2>
         <br/>
         <br/>
-        <form role="form" ng-submit="voteWriteCtrl.addVote()">
-             <input type="text" style="width:300px; float:left;" ng-model="voteWriteCtrl.subject" placeholder="투표 주제" class="form-control" minlength="1" maxlength="10"
-                        required>
-            <div class="row">
-                <div class="input-group"> 
-                    <input type="text" ng-model="voteWriteCtrl.content" placeholder="추가할 내용" class="form-control" minlength="1" maxlength="10"
-                        required>
-                    <span class="input-group-btn">
-                    <input type="submit" class="btn btn-primary" value="Add">
-                </span>
+
+        <div class="container">
+            <form ng-submit="voteWriteCtrl.addVote()" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="contact-subject" class="col-sm-2 control-label">
+                        주제
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="contact-subject" ng-model="voteWriteCtrl.subject" placeholder="투표 주제를 입력해주세요">
+                    </div>
                 </div>
-            </div>
-        </form>
+
+                <div class="form-group">
+                    <label for="contact-content" class="col-sm-2 control-label">
+                        추가 내용
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="contact-content" ng-model="voteWriteCtrl.content" placeholder="내용을 입력해주세요">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="submit" class="btn btn-primary" style="width:150px" value="Add">
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <p></p>
 
         <!-- Todos list -->
         <div ui-sortable ng-model="voteWriteCtrl.votes">
-            <p class="input-group" ng-repeat="vote in voteWriteCtrl.votes" style="padding: 5px 10px;">
-                <span color="black"> {{vote.item}}</span>
-                <span class="input-group-btn">
+            <div class="container">
+                <p class="input-group" ng-repeat="vote in voteWriteCtrl.votes" style="padding: 5px 10px;">
+                    <span color="black"> {{vote.item}}</span>
+                    <span class="input-group-btn">
                 <button class="btn btn-danger" ng-click="voteWriteCtrl.removeVote($index)" aria-label="Remove">X</button>
             </span>
-            </p>
+                </p>
+            </div>
+
         </div>
     </div>
 </div>

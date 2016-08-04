@@ -16,7 +16,10 @@ var app = angular.module('myApp', ["ui.router"])
 							var code = msg.data.code; 
 							if (code == 0) { 
 								return msg.data;
-							}  
+							} else{
+								msg.data=[];
+								return msg.data;
+							}
 						})
 					}
 
