@@ -34,6 +34,7 @@ io.on("connection", function (socket) {
   socket.on("new msg",function(data){
     //db저장 후 
     io.in(data.room_id).emit("new msg",data);
+    console.log(data);
     socket.emit("new msg",data);
   })
 
