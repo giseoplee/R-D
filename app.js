@@ -13,6 +13,7 @@ var os = require('os');
 var dbService = require("./Service/DBService.js");
 var routesService = require("./Service/RoutesService.js");
 var index = require('./Controller/ViewController.js');
+//var index = require('./Controller/SocketController.js');
 var config = require('./Config.js');
 global.app = new express();
 
@@ -28,15 +29,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 io.on("connection", function (socket) {
   console.log("socket connection");
-  socket.on("new user",function(data){ 
+  socket.on("new user",function(data){
     socket.join(data.room_id);
   });
   socket.on("new msg",function(data){
-    //db저장 후 
+    //db저장 후
     io.in(data.room_id).emit("new msg",data);
-    console.log(data);
+
     socket.emit("new msg",data);
-  })
+  });
 
   //연결 해제
   socket.on('disconnect', (data) => {
