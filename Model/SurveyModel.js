@@ -21,7 +21,7 @@ Survey.getSurveyCount = function(callback){
 }
 
 Survey.findSurveyList = function (selectField, limitRange, callback) { // 설문 리스트 전체 SELECT
-  
+
     var string = "";
     var arr = [];
 

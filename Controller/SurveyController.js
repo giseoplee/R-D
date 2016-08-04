@@ -30,7 +30,14 @@ router.get('/list', function (req, res) {
         var pageMax = pageCount - ((page - 1) * pageLinkCount);
 
         if(pageEnd > pageTotal){
+
             pageEnd = pageTotal;
+        }
+
+        if(page === undefined || page < 1){
+
+          pageBegin = 0;
+          pageListCount = pageCount;
         }
 
         limitRange.push(pageBegin);
