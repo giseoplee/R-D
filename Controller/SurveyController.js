@@ -14,7 +14,7 @@ router.use(function log(req, res, next) {
     next();
 });
 
-router.get('/list/:page', function (req, res) {
+router.get('/list', function (req, res) {
 
     var page = req.query.page;
     var selectField = ['id', 'subject', 'created_at'];
