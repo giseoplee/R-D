@@ -21,10 +21,25 @@ app.controller("mainController", function ($scope, list, $window, $http) {
     function setting(list) {
         vm.voteMsgs = list.data;
         var pageManagement = list.data[0];
+        console.log("setting : ", list);
+        vm.page = list.data.page;
         vm.pageStart = pageManagement.pageStart;
         vm.pageEnd = pageManagement.pageEnd;
         vm.pageTotal = pageManagement.pageTotal;
-        vm.range(); 
+        vm.range();
+
+        if (vm.page > vm.pageStart) {
+            vm.beforePage = true;
+        }
+        else {
+            vm.beforePage = false;
+        }
+        if (vm.endPage < vm.totalPage) {
+            vm.afterPage = true;
+        } else {
+            vm.afterPage = false;
+        }
+
         console.log("list ", list);
     }
 

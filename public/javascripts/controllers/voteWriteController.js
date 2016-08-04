@@ -9,8 +9,8 @@ app.controller("voteWriteController", ["$scope","$window","voteWriteService",fun
         if(vm.content.trim().length==0){
             $window.alert("목록을 입력해주세요");
             return;
-        }else if(vm.votes.length>7){
-            $window.alert("8개 이상 등록은 불가능합니다.");
+        }else if(vm.votes.length>6){
+            $window.alert("7개 이상 등록은 불가능합니다.");
             return;
         }else if(vm.subject.trim().length==0){
             $window.alert("주제를 입력해 주세요.");

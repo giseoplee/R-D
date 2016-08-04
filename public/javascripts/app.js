@@ -18,13 +18,11 @@ var app = angular.module('myApp', ["ui.router"])
 						var $promise = $http.get("/survey/list?page="+page)
 						return $promise.then(function (msg) {
 							//성공할 경우 
-							var code = msg.data.code;
-							if (code == 0) {
-								console.log("success",msg.data);
+							var code = msg.data.code; 
+							if (code == 0) { 
+								msg.data.page=page;
 								return msg.data;
-							} else {
-								
-								console.log("fail");
+							} else { 
 								msg.data = [];
 								return msg.data;
 							}
@@ -48,7 +46,8 @@ var app = angular.module('myApp', ["ui.router"])
 						var $promise =$http.get("/survey/detail/"+$stateParams.id);
 						return $promise.then(function(msg){
 							var code= msg.data.code;
-						 
+
+							 console.log("$state : ",$state);
 							//성공할 경우 
 							if(code==0){  
 								msg.data.survey=$stateParams.id;
