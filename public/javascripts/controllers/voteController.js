@@ -21,6 +21,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
             survey: voteContent.survey
         }
         voteService.voteMsg(form);
+        vm.user_vote="";
         vm.vote_flag = true;
     }
     vm.onRadioClick = function (vote) {
@@ -43,7 +44,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         items.forEach(function (element, index) {
             if (index != 0) {
                 vm.voteContent[index].percentage = 0;
-                if (items.length - 1 == index) {
+                if (items.length - 2 == index) {
                     if (max == 100)
                         vm.voteContent[index].percentage = 0;
                     else
