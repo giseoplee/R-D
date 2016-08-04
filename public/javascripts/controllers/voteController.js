@@ -10,7 +10,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
     voteService.joinMsg({ room_id: voteContent.survey });
 
     setting(voteContent.data);
- 
+
     vm.onResponse = function () {
 
         if (vm.user_vote.index === undefined || voteContent.survey === undefined) {
@@ -42,13 +42,13 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         var sum = 0;
         console.log("items : ", voteContent)
         for (var i = 1; i < items.length; i++) {
-            sum += items[i].cnt; 
+            sum += items[i].cnt;
         }
         for (var i = 1; i < items.length; i++) {
             vm.voteContent[i].percentage = 0;
-            
+
             if (items.length - 1 == i) {
-                if (max == 100)
+                if (max == 100 && items[i].cnt == 0)
                     vm.voteContent[i].percentage = 0;
                 else
                     vm.voteContent[i].percentage = max;
@@ -60,8 +60,8 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
                 vm.voteContent[i].percentage = percentage;
                 max -= percentage;
             }
-            
-            console.log("sum : ",vm.voteContent[i].percentage);
-        } 
+
+            console.log("sum : ", vm.voteContent[i].percentage);
+        }
     }
 });
