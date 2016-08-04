@@ -21,10 +21,10 @@ router.get('/list', function (req, res) {
     surveyModel.getSurveyCount(function(result){
 
         var pageCount = result[0].count;
-        var pageListCount = 3;
+        var pageListCount = 10;
         var pageBegin = (page - 1) * pageListCount;
         var pageTotal = Math.ceil(pageCount / pageListCount);
-        var pageLinkCount = 3;
+        var pageLinkCount = 10;
         var pageStart = Math.floor((page - 1) / pageLinkCount) * pageLinkCount + 1;
         var pageEnd = pageStart + (pageLinkCount - 1);
         var pageMax = pageCount - ((page - 1) * pageLinkCount);
