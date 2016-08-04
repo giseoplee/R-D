@@ -32,7 +32,7 @@ SocketService.Init = function() {
                 for (var i = 0; i < result.length; i++) {
                     array.push(result[i]);
                 } 
-                io.in(data.room_id).emit("new msg",array);
+                socket.broadcast.to(data.room_id).emit("new msg",array); 
                 socket.emit("new msg",array);
             });
         });
