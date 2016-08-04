@@ -57,8 +57,6 @@ router.get('/list', function (req, res) {
                 array.push(result[i]);
             }
 
-            console.log(array);
-
             res.json({
                 code: errorCode.Ok,
                 data: array
