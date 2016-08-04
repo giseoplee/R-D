@@ -44,18 +44,19 @@ var app = angular.module('myApp', ["ui.router"])
 				controller: 'voteController',
 				controllerAs: 'voteCtrl',
 				resolve: {
-                    voteContent: function ($http, $stateParams,$state,$window) {
-						console.log("$state",$stateParams);
+                    voteContent: function ($http, $stateParams,$state,$window) { 
 						var $promise =$http.get("/survey/detail/"+$stateParams.id);
 						return $promise.then(function(msg){
 							var code= msg.data.code;
-							
+						 
+							//성공할 경우 
 							if(code==0){ 
-								return msg.data.data;
-							}else{
+								msg.data.subject=$stateParams.subject; 
+								return msg.data;
+							}else{ 
+								$window.alert("잘못된 경로입니다.");
+								$state.go("index");
 								return msg.data=[];
-								// $window.alert("잘못된 경로입니다.");
-								// $state.go("index");
 							}
 						});
 					 

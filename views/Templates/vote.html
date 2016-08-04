@@ -5,18 +5,18 @@
 
 <div class="body">
   <div class="body-content text-center">
-    <h1>{{voteCtrl.voteContent.subject}} 설문</h1>  
-    
-      <div class="vGraph" ui-sortable ng-model="voteCtrl.voteContent.votes">
-        <ul>
-          <li class="input-group" ng-repeat="vote in voteCtrl.voteContent.votes | orderBy:'-cnt'" style="padding: 5px 10px;"> 
-              <span class="gTerm"><input type="radio" name="options" autocomplete="off" ng-click="voteCtrl.onRadioClick(vote)"/><p>{{vote.item}} {{vote.cnt}}</p></span>   
-              <span class="gBar" style="height:{{vote.percentage}}%">  
-              <span>{{vote.percentage}}%</span>       
-          </li> 
-        </ul>
-      </div> 
-      <br/><br/>
-      <button class="btn btn-primary" style="width:120px" ng-click="voteCtrl.onResponse()">응답완료</button>
+    <h1>{{voteCtrl.subject}} 설문</h1>
+
+    <div class="vGraph" ui-sortable ng-model="voteCtrl.voteContent">
+      <ul>
+        <li class="input-group" ng-if="$index!=0;" ng-repeat="vote in voteCtrl.voteContent | orderBy:'-cnt'" style="padding: 5px 10px;">
+          <span class="gTerm"><input type="radio" name="options" autocomplete="off" ng-click="voteCtrl.onRadioClick(vote)"/><p>{{vote.item}} {{vote.cnt}}</p></span>
+          <span class="gBar" style="height:{{vote.percentage}}%">  
+              <span >{{vote.percentage}}%</span>
+        </li>
+      </ul>
+    </div>
+    <br/><br/>
+    <button class="btn btn-primary" style="width:120px" ng-click="voteCtrl.onResponse()">응답완료</button>
   </div>
 </div>
