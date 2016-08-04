@@ -39,7 +39,7 @@ io.on("connection", function (socket) {
     socket.emit("new msg",data);
   })
 
-  연결 해제
+  //연결 해제
   socket.on('disconnect', (data) => {
     console.log("disconnect");
     socket.leave();
@@ -63,7 +63,7 @@ app.get('/*', function(req,res,next){
   res.render("index",{title:"Express"});
 });
 
-httpServer.listen(httpPort, () => {
+httpServer.listen(httpPort, ()=> {
   console.log('HTTP server listening on port %d !!!', httpPort);
 });
 
