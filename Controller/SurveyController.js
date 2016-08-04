@@ -39,13 +39,14 @@ router.get('/list', function (req, res) {
         if(page === undefined || page < 1){
 
             pageBegin = 0;
+            pageTotal = 1;
             pageListCount = pageCount;
         }
 
         limitRange.push(pageBegin);
         limitRange.push(pageListCount);
 
-        surveyModel.findSurveyList(selectField, limitRange, pageEnd, function(result){
+        surveyModel.findSurveyList(selectField, limitRange, pageTotal, function(result){
 
             var array = [];
             array.push(result[0]);

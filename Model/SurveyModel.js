@@ -20,7 +20,7 @@ Survey.getSurveyCount = function(callback){
     });
 }
 
-Survey.findSurveyList = function (selectField, limitRange, pageMax, callback) { // 설문 리스트 전체 SELECT
+Survey.findSurveyList = function (selectField, limitRange, pageTotal, callback) { // 설문 리스트 전체 SELECT
 
     var string = "";
     var arr = [];
@@ -45,7 +45,7 @@ Survey.findSurveyList = function (selectField, limitRange, pageMax, callback) { 
     dbService.Query("SELECT ??" + string + " FROM ?? ORDER BY id DESC LIMIT ?,?", arr, function (data) {
 
         var obj = {};
-        obj.pageMax = pageMax;
+        obj.pageTotal = pageTotal;
 
         data.unshift(obj);
         callback(data);
