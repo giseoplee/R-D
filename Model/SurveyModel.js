@@ -135,7 +135,7 @@ Survey.updateSurveyItem = function(surveyId, itemIndex, callback){
     console.log(arr);
 
     dbService.Query("UPDATE ?? SET ?? = ?? + 1", arr, function(data, err){
-        console.log(data);
+        
         callback(data);
     });
 }

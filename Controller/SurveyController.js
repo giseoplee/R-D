@@ -52,7 +52,6 @@ router.get('/list/:page', function (req, res) {
             for (var i = 0; i < result.length; i++) {
 
                 console.log(moment(result[i].created_at).fromNow());
-                //console.log(result[i]);
                 array.push(result[i]);
             }
 
