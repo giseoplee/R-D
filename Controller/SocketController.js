@@ -15,8 +15,7 @@ SocketService.Init = function() {
 
     socket.on("new msg",function(data){
         // console.log("socket : ",socket);
-
-        console.log("msg",data);
+ 
         var surveyId = data.survey;
         var updateItemIndex = data.index;
 
@@ -32,9 +31,9 @@ SocketService.Init = function() {
 
                 for (var i = 0; i < result.length; i++) {
                     array.push(result[i]);
-                }
-
+                } 
                 io.in(data.room_id).emit("new msg",array);
+                socket.emit("new msg",array);
             });
         });
     });

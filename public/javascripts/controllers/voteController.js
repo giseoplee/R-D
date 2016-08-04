@@ -1,6 +1,6 @@
 
 
-app.controller("voteController", function ($scope, voteContent, voteService, socketio) {
+app.controller("voteController", function ($scope, voteContent, voteService, socketio,$state) {
 
     var vm = this;
     vm.user_vote = "";
@@ -14,7 +14,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         var form = {
             index: vm.user_vote.index,
             survey: voteContent.survey
-        }
+        } 
         voteService.voteMsg(form);
         vm.vote_flag = true;
     }
@@ -22,8 +22,8 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         vm.user_vote = vote;
     }
     socketio.on("new msg", function (data) {
-
-        console.log(data);
+        setting(data);  
+        $state.reload();
     })
     vm.ckBar = function (ck) {
         console.log("check : ",ck);
@@ -48,8 +48,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
                     vm.voteContent[index].percentage = 0;
                 } else {
                     var percentage = 0;
-                    percentage = parseInt((element.cnt / sum) * 100);
-                    console.log("percentage", percentage)
+                    percentage = parseInt((element.cnt / sum) * 100); 
                     vm.voteContent[index].percentage = percentage;
                     max -= percentage;
                 }

@@ -51,9 +51,7 @@ var app = angular.module('myApp', ["ui.router"])
 							//성공할 경우 
 							if(code==0){  
 								msg.data.survey=$stateParams.id;
-								msg.data.subject=$stateParams.subject; 
-								
-								console.log("data !",msg.data);
+								msg.data.subject=$stateParams.subject;  
 								return msg.data;
 							}else{ 
 								$window.alert("잘못된 경로입니다.");
