@@ -9,9 +9,9 @@
 
     <div class="vGraph" ui-sortable ng-model="voteCtrl.voteContent">
       <ul>
-        <li class="input-group" ng-if="$index!=0;" ng-repeat="vote in voteCtrl.voteContent | orderBy:'-cnt'" style="padding: 5px 10px;">
+        <li class="input-group" ng-if="$index!=0;" ng-repeat="vote in voteCtrl.voteContent" style="padding: 5px 10px;">
           <span class="gTerm"><input type="radio" name="options" autocomplete="off"    ng-click="voteCtrl.onRadioClick(vote)"/><p>{{vote.item}} {{vote.cnt}}</p></span>
-          <span class="gBar"   style="height:{{vote.percentage}}%">  
+          <span class="gBar" style="height:{{vote.percentage}}%">  
               <span >{{vote.percentage}}%</span>
         </li>
       </ul>
