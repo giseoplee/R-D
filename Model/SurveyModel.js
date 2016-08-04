@@ -184,7 +184,7 @@ Survey.findSurveyDetail = function(surveyId, callback){
                   obj.cnt = data[0]["item"+i+"_count"];
                   arr.push(obj);
               }
-              console.log(arr);
+
               callback(arr);
           });
       });
