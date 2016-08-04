@@ -38,22 +38,25 @@ router.get('/list', function (req, res) {
 
         if(page === undefined || page < 1){
 
-          pageBegin = 0;
-          pageListCount = pageCount;
+            pageBegin = 0;
+            pageListCount = pageCount;
         }
 
         limitRange.push(pageBegin);
         limitRange.push(pageListCount);
 
-        surveyModel.findSurveyList(selectField, limitRange, function(result){
+        surveyModel.findSurveyList(selectField, limitRange, pageEnd, function(result){
 
             var array = [];
+            array.push(result[0]);
 
-            for (var i = 0; i < result.length; i++) {
+            for (var i = 1; i < result.length; i++) {
 
-                console.log(moment(result[i].created_at).fromNow());
+                result[i].created_at = moment(result[i].created_at).fromNow();
                 array.push(result[i]);
             }
+
+            console.log(array);
 
             res.json({
                 code: errorCode.Ok,
