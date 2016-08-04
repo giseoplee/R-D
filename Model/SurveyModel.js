@@ -135,7 +135,7 @@ Survey.updateSurveyItem = function(surveyId, itemIndex, callback){
     console.log(arr);
 
     dbService.Query("UPDATE ?? SET ?? = ?? + 1", arr, function(data, err){
-        
+
         callback(data);
     });
 }
@@ -173,7 +173,7 @@ Survey.findSurveyDetail = function(surveyId, callback){
                   obj.cnt = data[0]["item"+i+"_count"];
                   arr.push(obj);
               }
-
+              console.log(arr);
               callback(arr);
           });
       });
