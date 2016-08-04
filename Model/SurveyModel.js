@@ -45,7 +45,14 @@ Survey.findSurveyList = function (selectField, limitRange, pageTotal, callback) 
     dbService.Query("SELECT ??" + string + " FROM ?? ORDER BY id DESC LIMIT ?,?", arr, function (data) {
 
         var obj = {};
-        obj.pageTotal = pageTotal;
+        obj.pageCount = pageTotal[0];
+        obj.pageListCount = pageTotal[1];
+        obj.pageBegin = pageTotal[2];
+        obj.pageTotal = pageTotal[3];
+        obj.pageLinkCount = pageTotal[4];
+        obj.pageStart = pageTotal[5];
+        obj.pageEnd = pageTotal[6];
+        obj.pageMax = pageTotal[7];
 
         data.unshift(obj);
         callback(data);

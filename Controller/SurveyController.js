@@ -19,6 +19,7 @@ router.get('/list', function (req, res) {
     var page = req.query.page;
     var selectField = ['id', 'subject', 'created_at'];
     var limitRange = [];
+    var paging = [];
 
     surveyModel.getSurveyCount(function(result){
 
@@ -36,6 +37,15 @@ router.get('/list', function (req, res) {
             pageEnd = pageTotal;
         }
 
+        paging.push(pageCount);
+        paging.push(pageListCount);
+        paging.push(pageBegin);
+        paging.push(pageTotal);
+        paging.push(pageLinkCount);
+        paging.push(pageStart);
+        paging.push(pageEnd);
+        paging.push(pageMax);
+
         if(page === undefined || page < 1){
 
             pageBegin = 0;
@@ -46,7 +56,7 @@ router.get('/list', function (req, res) {
         limitRange.push(pageBegin);
         limitRange.push(pageListCount);
 
-        surveyModel.findSurveyList(selectField, limitRange, pageTotal, function(result){
+        surveyModel.findSurveyList(selectField, limitRange, paging, function(result){
 
             var array = [];
             array.push(result[0]);
@@ -56,6 +66,8 @@ router.get('/list', function (req, res) {
                 result[i].created_at = moment(result[i].created_at).fromNow();
                 array.push(result[i]);
             }
+
+            console.log(array);
 
             res.json({
                 code: errorCode.Ok,
