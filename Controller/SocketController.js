@@ -29,14 +29,21 @@ SocketService.Init = function () {
 
                     var array = [];
 
-                    async.eachSeries(result, function(data, callback) {
-                        array.push(data)
-                        callback(array);
-                    }, function(array)  {
-                        socket.broadcast.to(data.room_id).emit("new msg", array);
-                        socket.emit("new msg", array);
-                    });
+                    // async.eachSeries(result, function(data, callback) {
+                    //     array.push(data);
 
+                    //     callback(array);
+                    // }, function(array)  {
+                    //     console.log("array",array);
+                    //     socket.broadcast.to(data.room_id).emit("new msg", array);
+                    //     socket.emit("new msg", array);
+                    // });
+
+                   for (var i = 0; i < result.length; i++) {
+                        array.push(result[i]);
+                    }
+                   socket.broadcast.to(data.room_id).emit("new msg", array);
+                   socket.emit("new msg", array);
                 });
             });
         });

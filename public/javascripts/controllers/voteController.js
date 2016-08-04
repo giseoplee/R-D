@@ -9,7 +9,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
 
     setting(voteContent.data);
 
-
+    console.log("voteContent",voteContent);
     vm.onResponse = function () { 
         
         if (vm.user_vote.index === undefined ||  voteContent.survey===undefined) { 
@@ -28,8 +28,9 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         vm.user_vote = vote;
     }
     socketio.on("new msg", function (data) { 
-        console.log("new msg : ", data);
-        setting(data);
+        console.log("new msg : ", data); 
+        
+        setting(data); 
     })
     vm.ckBar = function (ck) {
         console.log("check : ", ck);
