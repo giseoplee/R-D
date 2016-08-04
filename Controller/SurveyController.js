@@ -66,7 +66,8 @@ router.get('/list', function (req, res) {
 
 router.get('/detail/:survey', function (req, res) {
 
-    var surveyId = req.query.survey;
+    var surveyId = req.params.survey;
+
     if (surveyId === undefined) {
         throw { code: errorCode.ParamError };
     }
