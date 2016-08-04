@@ -25,7 +25,7 @@ SocketService.Init = function() {
 
         surveyModel.updateSurveyItem(surveyId, updateItemIndex, function (result) {
 
-            surveyModel.findSurveyDetail(surveyId, function(result){
+            surveyModel.findSurveyDetail(surveyId, function (result){
 
                 var array = [];
 
