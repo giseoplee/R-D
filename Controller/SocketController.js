@@ -35,6 +35,7 @@ SocketService.Init = function() {
                 }
 
                 io.in(data.room_id).emit("new msg",array);
+                socket.emit("new msg",array);
             });
         });
     });
