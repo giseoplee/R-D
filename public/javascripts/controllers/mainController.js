@@ -8,7 +8,7 @@ app.controller("mainController", function ($scope, list, $window, $http) {
     vm.pageClick = function (page) {
         var $promise = $http.get("/survey/list?page=" + page)
         $promise.then(function (list) {
-            //성공할 경우 
+            //성공할 경우
             var code = list.data.code;
             if (code == 0) {
                 setting(list.data);
@@ -17,7 +17,7 @@ app.controller("mainController", function ($scope, list, $window, $http) {
             }
         });
 
-    }
+    } 
     function setting(list) {
         vm.voteMsgs = list.data;
         var pageManagement = list.data[0];

@@ -2,7 +2,7 @@
 
 app.factory("voteService", function ($q, socketio, $rootScope) {
 
-    return { 
+    return {
         joinMsg: function (data) {
             socketio.emit("new user", data);
         },
@@ -10,4 +10,4 @@ app.factory("voteService", function ($q, socketio, $rootScope) {
             socketio.emit("new msg", data);
         }
     }
-})
+}) 

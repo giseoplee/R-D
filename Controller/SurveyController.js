@@ -21,7 +21,7 @@ router.get('/list', function (req, res) {
     var limitRange = [];
     var paging = [];
 
-    surveyModel.getSurveyCount(function (result) {
+    surveyModel.getSurveyCount(function(result){
 
         var pageCount = result[0].count;
         var pageListCount = 10;
@@ -32,7 +32,7 @@ router.get('/list', function (req, res) {
         var pageEnd = pageStart + (pageLinkCount - 1);
         var pageMax = pageCount - ((page - 1) * pageLinkCount);
 
-        if (pageEnd > pageTotal) {
+        if(pageEnd > pageTotal){
 
             pageEnd = pageTotal;
         }
@@ -46,7 +46,7 @@ router.get('/list', function (req, res) {
         paging.push(pageEnd);
         paging.push(pageMax);
 
-        if (page === undefined || page < 1) {
+        if(page === undefined || page < 1){
 
             pageBegin = 0;
             pageTotal = 1;
@@ -56,7 +56,7 @@ router.get('/list', function (req, res) {
         limitRange.push(pageBegin);
         limitRange.push(pageListCount);
 
-        surveyModel.findSurveyList(selectField, limitRange, paging, function (result) {
+        surveyModel.findSurveyList(selectField, limitRange, paging, function(result){
 
             var array = [];
             array.push(result[0]);
@@ -84,13 +84,15 @@ router.get('/detail/:survey', function (req, res) {
         throw { code: errorCode.ParamError };
     }
 
-    surveyModel.findSurveyDetail(surveyId, function (result) {
+    surveyModel.findSurveyDetail(surveyId, function(result) {
 
         var array = [];
 
         for (var i = 0; i < result.length; i++) {
             array.push(result[i]);
         }
+
+        console.log(array);
 
         res.json({
             code: errorCode.Ok,
@@ -139,15 +141,15 @@ router.post('/insert', function (req, res) {
 
     surveyModel.insertSurvey(insertSubject, insertItem, function (insertResult) {
 
-        if (!insertResult) {
-            throw { code: errorCode.DBError };
+        if(!insertResult){
+          throw{ code: errorCode.DBError };
         }
 
         surveyModel.createSurvey(insertResult, insertItem, insertArray, function (createResult) {
 
             res.json({
                 code: errorCode.Ok,
-                index: createResult
+                index : createResult
             });
             res.end();
 
