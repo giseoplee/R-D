@@ -1,10 +1,7 @@
 app.controller("mainController", function ($scope, list, $window, $http) {
 
     var vm = this;
-
-
-
-
+ 
     vm.pageClick = function (page) {
         var $promise = $http.get("/survey/list?page=" + page)
         $promise.then(function (list) {

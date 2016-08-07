@@ -9,25 +9,25 @@ var app = angular.module('myApp', ["ui.router"])
 				controller: 'mainController',
 				controllerAs: "mainCtrl",
 				resolve: {
-					list: function ($http,$stateParams) {
-						var page; 
-						if($stateParams.page===""||$stateParams.page===undefined)
-                            page=1;
-                        else page=$stateParams.page; 
-						 
-						var $promise = $http.get("/survey/list?page="+page)
+					list: function ($http, $stateParams) {
+						var page;
+						if ($stateParams.page === "" || $stateParams.page === undefined)
+                            page = 1;
+                        else page = $stateParams.page;
+
+						var $promise = $http.get("/survey/list?page=" + page)
 						return $promise.then(function (msg) {
 							//성공할 경우 
-							var code = msg.data.code; 
-							if (code == 0) { 
-								msg.data.page=page;
+							var code = msg.data.code;
+							if (code == 0) {
+								msg.data.page = page;
 								return msg.data;
-							} else { 
+							} else {
 								msg.data = [];
 								return msg.data;
 							}
 						})
-					} 
+					}
 				}
 			})
 			.state("write", {
@@ -42,26 +42,42 @@ var app = angular.module('myApp', ["ui.router"])
 				controller: 'voteController',
 				controllerAs: 'voteCtrl',
 				resolve: {
-                    voteContent: function ($http, $stateParams,$state,$window) { 
-						var $promise =$http.get("/survey/detail/"+$stateParams.id);
-						return $promise.then(function(msg){
-							var code= msg.data.code;
+                    voteContent: function ($http, $stateParams, $state, $window) {
+						var $promise = $http.get("/survey/detail/" + $stateParams.id);
+						return $promise.then(function (msg) {
+							var code = msg.data.code;
 
-							 console.log("$state : ",$state);
+							console.log("$state : ", $state);
 							//성공할 경우 
-							if(code==0){  
-								msg.data.survey=$stateParams.id;
-								msg.data.subject=$stateParams.subject;  
+							if (code == 0) {
+								msg.data.survey = $stateParams.id;
+								msg.data.subject = $stateParams.subject;
 								return msg.data;
-							}else{ 
+							} else {
 								$window.alert("잘못된 경로입니다.");
 								$state.go("index");
-								return msg.data=[];
+								return msg.data = [];
 							}
 						});
-					 
-                    } 
+
+                    }
                 }
+			})
+			.state("admin", {
+				url: "/admin",
+				templateUrl: "Templates/admin.check.html",
+				controller: "adminController",
+				controllerAs: "adminCtrl"
 			})
 		$locationProvider.html5Mode(true);
 	})
+
+
+app.run(["$rootScope", function ($rootScope) {
+
+	$rootScope.$on("$stateChangeStart",function(event){
+
+			console.log("페이지 변경 ",event);
+			
+	});
+}]);

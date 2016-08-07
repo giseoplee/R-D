@@ -39,8 +39,7 @@ app.controller("voteController", function ($scope, voteContent, voteService, soc
         vm.voteContent = voteContent;
         var items = voteContent;
         var max = 100;
-        var sum = 0;
-        console.log("items : ", voteContent)
+        var sum = 0; 
         for (var i = 1; i < items.length; i++) {
             sum += items[i].cnt;
         }
