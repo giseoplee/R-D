@@ -7,11 +7,11 @@ app.factory("voteWriteService", function ($http, $window, $state) {
                 method: "POST",
                 data: voteContents
             });
-
+           
             $promise.then(function (msg) {
 
                 var code=msg.data.code;
-                var index=msg.data.index;  
+                var index=msg.data.index;
                 //성공할 경우
                 if (code===0) {
                     $window.alert("등록되었습니다.");
@@ -23,4 +23,3 @@ app.factory("voteWriteService", function ($http, $window, $state) {
         }
     }
 })
-

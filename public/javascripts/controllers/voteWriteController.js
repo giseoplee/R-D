@@ -3,9 +3,9 @@ app.controller("voteWriteController", ["$scope","$window","voteWriteService",fun
 
     var vm = this;
     vm.votes = [];
-    vm.subject="";
+    vm.subject=""; 
     vm.content="";
-    vm.addVote = function () {   
+    vm.addVote = function () {
         if(vm.content.trim().length==0){
             $window.alert("목록을 입력해주세요");
             return;
@@ -14,23 +14,23 @@ app.controller("voteWriteController", ["$scope","$window","voteWriteService",fun
             return;
         }else if(vm.subject.trim().length==0){
             $window.alert("주제를 입력해 주세요.");
-            return;    
+            return;
         }
         vm.votes.push({item:vm.content});
-        vm.content = ""; 
-    } 
-    vm.removeVote = function (index) { 
+        vm.content = "";
+    }
+    vm.removeVote = function (index) {
        removeByIndex(vm.votes,index);
-    } 
-    vm.submitVote=function(){ 
+    }
+    vm.submitVote=function(){
         var votes=vm.votes;
         if(votes.length<2){
             $window.alert("2개 이상 등록해주세요.");
             return;
         }else if(vm.subject.trim().length==0){
             $window.alert("주제를 입력해 주세요.");
-            return;    
-        } 
+            return;
+        }
         var content={
             subject:vm.subject,
             contents:votes
