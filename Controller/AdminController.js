@@ -4,6 +4,7 @@ var crypto = require('crypto');
 var util = require('util');
 var uuid = require('node-uuid');
 var jwt = require('jwt-simple');
+var moment = require('moment');
 
 var config = require('../Config.js');
 var errorCode = require('../Model/AdminModel.js');
@@ -24,10 +25,21 @@ router.post('/login', function(req, res){
     var algorithm = ['RSA-SHA512', 'RSA-SHA1', 'whirlpool', 'DSA-SHA', 'dsaWithSHA', 'ecdsa-with-SHA1', 'ripemd160WithRSA', 'sha512WithRSAEncryption', 'RSA-SHA1-2' ,'RSA-SHA384'];
 
     for(var i = 0; i < algorithm.length; i++){
-      key = encryption(authKey, key, algorithm[i]);
+        key = encryption(authKey, key, algorithm[i]);
     }
 
-    //console.log(key);
+    if(key === config.adminConfig.key){
+
+        var expires = moment().add('minutes', 120).valueOf();
+        var token = jwt.enconde({
+
+            iss : key + uuid.v4(),
+            exp : expires
+        }, authKey, "HS512");
+    }
+
+    console.log(key);
+    console.log(token);
 
     res.json({
         code: errorCode.Ok,
